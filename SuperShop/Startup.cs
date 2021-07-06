@@ -26,7 +26,7 @@ namespace SuperShop
             });
 
             services.AddTransient<SeedDb>(); // Objeto é criado, utilizado uma vez e deixa de existir após a utilização
-            services.AddScoped<IRepository, Repository>(); // Objeto é criado e utilizado durante a execução do programa. Caso carreguemos nos products novamente, ele apaga este objeto e cria um novo
+            services.AddScoped<IProductRepository, ProductRepository>(); // Objeto é criado e utilizado durante a execução do programa. Caso carreguemos nos products novamente, ele apaga este objeto e cria um novo
 
             services.AddControllersWithViews();
         }
