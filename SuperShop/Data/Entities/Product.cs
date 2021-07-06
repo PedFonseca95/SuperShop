@@ -12,7 +12,7 @@ namespace SuperShop.Data.Entities
 
         [Required] // Campo obrigatório
         [MaxLength(50, ErrorMessage = "The field {0} can contain {1} characters length.")] // Tamanho máximo do campo
-        public string Nome { get; set; }
+        public string Name { get; set; }
 
         // Aplica o formato de moeda (C -> currency) com 2 casas decimais
         // Durante a edição desta propriedade não é aplicada a formatação para evitar possiveis erros

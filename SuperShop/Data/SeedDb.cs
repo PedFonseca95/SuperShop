@@ -43,7 +43,7 @@ namespace SuperShop.Data
         {
             _context.Products.Add(new Product
             {
-                Nome = name,
+                Name = name,
                 Price = _random.Next(1000),
                 IsAvailable = true,
                 Stock = _random.Next(100)
