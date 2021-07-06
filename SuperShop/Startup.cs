@@ -25,6 +25,8 @@ namespace SuperShop
                 cfg.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection"));
             });
 
+            services.AddTransient<SeedDb>(); // Objeto é criado, utilizado uma vez e deixa de existir após a utilização
+
             services.AddControllersWithViews();
         }
 
