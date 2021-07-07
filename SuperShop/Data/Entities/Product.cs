@@ -39,5 +39,18 @@ namespace SuperShop.Data.Entities
         public double Stock { get; set; }
 
         public User User { get; set; }
+
+        public string ImageFullPath
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(ImageUrl))
+                {
+                    return null; // Se não ouver imagem, devolve null na API
+                }
+
+                return $"https://localhost:44376/{ImageUrl.Substring(1)}"; // Devolve um link com a imagem, para a API em vez do caminho default
+            }
+        }
     }
 }
