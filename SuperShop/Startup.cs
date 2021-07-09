@@ -44,6 +44,7 @@ namespace SuperShop
             services.AddScoped<IUserHelper, UserHelper>();
             services.AddScoped<IProductRepository, ProductRepository>(); // Objeto é criado e utilizado durante a execução do programa. Caso carreguemos nos products novamente, ele apaga este objeto e cria um novo
             services.AddScoped<IImageHelper, ImageHelper>();
+            services.AddScoped<IConverterHelper, ConverterHelper>();
             services.AddControllersWithViews();
         }
 
