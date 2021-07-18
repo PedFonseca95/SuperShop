@@ -21,7 +21,7 @@ namespace SuperShop.Data.Entities
 
         // Altera o nome deste campo na página para 'Image'
         [Display(Name = "Image")]
-        public string ImageUrl { get; set; }
+        public Guid ImageId { get; set; }
 
         // Ao utilizar ? o campo deixa de ser obrigatório
         // Util caso queiramos separar o nome da propriedade
@@ -40,17 +40,8 @@ namespace SuperShop.Data.Entities
 
         public User User { get; set; }
 
-        public string ImageFullPath
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(ImageUrl))
-                {
-                    return null; // Se não ouver imagem, devolve null na API
-                }
-
-                return $"https://localhost:44376/{ImageUrl.Substring(1)}"; // Devolve um link com a imagem, para a API em vez do caminho default
-            }
-        }
+        public string ImageFullPath => ImageId == Guid.Empty
+            ? $"https://supershopfonseca.azurewebsites.net/images/noimage.png" // Se não tiver imagem, faz load de uma imagem default
+            : $"https://supershopfonseca.blob.core.windows.net/products/{ImageId}"; // Se tiver imagem, vai buscá-la ao contentor do azure
     }
 }
