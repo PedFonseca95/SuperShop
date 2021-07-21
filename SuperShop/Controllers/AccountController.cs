@@ -104,5 +104,79 @@ namespace SuperShop.Controllers
 
             return View(model); // Se o modelo não for válido
         }
+
+        public async Task<IActionResult> ChangeUser()
+        {
+            var user = await _userHelper.GetUserByEmailAsync(this.User.Identity.Name);
+
+            var model = new ChangeUserViewModel();
+
+            if (user != null)
+            {
+                model.FirstName = user.FirstName;
+                model.LastName = user.LastName;
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeUser(ChangeUserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userHelper.GetUserByEmailAsync(this.User.Identity.Name);
+
+                if (user != null)
+                {
+                    user.FirstName = model.FirstName;
+                    user.LastName = model.LastName;
+                    var response = await _userHelper.UpdateUserAsync(user);
+
+                    if (response.Succeeded)
+                    {
+                        ViewBag.UserMessage = "User updated!";
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, response.Errors.FirstOrDefault().Description);
+                    }
+                }
+            }
+
+            return View(model);
+        }
+
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userHelper.GetUserByEmailAsync(this.User.Identity.Name); // Cria o user
+                if (user != null) // Se ele existir
+                {
+                    var result = await _userHelper.ChangePasswordAsync(user, model.OldPassword, model.NewPassword); // Altera-lhe a password
+                    if (result.Succeeded) // Se a alteração for bem sucedida
+                    {
+                        return this.RedirectToAction("ChangeUser"); // Redireciona para a View ChangeUser
+                    }
+                    else // Se não tiver conseguido alterar a password
+                    {
+                        this.ModelState.AddModelError(string.Empty, result.Errors.FirstOrDefault().Description); // Mostra uma mensagem de erro com a descrição do mesmo
+                    }
+                }
+                else // Se o user não existir
+                {
+                    this.ModelState.AddModelError(string.Empty, "User not found."); // Mostra uma mensagem de erro
+                }
+            }
+
+            return this.View(model); // Retorna à View ChangePassword, já com as informações atualizadas do user (model)
+        }
     }
 }
