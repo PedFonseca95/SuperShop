@@ -52,8 +52,10 @@ namespace SuperShop.Controllers
             return View(product);
         }
 
+        // Impede o acesso à View Create dos produtos, obrigando a estar logado numa conta de tipo Admin
+        // Para adicionar permissões a mais do que uma role fazer [Authorize(Roles ="Role,Role,Role,Role,...")]
         // GET: Products/Create
-        [Authorize] // Impede o acesso aos produtos, obrigando a estar uma conta logada para o efeito
+        [Authorize(Roles ="Admin")] 
         public IActionResult Create()
         {
             return View();
