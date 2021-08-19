@@ -60,7 +60,7 @@ namespace SuperShop.Data
             }
 
             // Verifia novamente se o user criado já está nesta role, pois caso o user exista ele não chega a entrar no if anterior e não faz esta verificação
-            var isInRole = await _userHelper.IsUserInRoleAsync(user, "Admin"); 
+            var isInRole = await _userHelper.IsUserInRoleAsync(user, "Admin");
 
             if (!isInRole) // Se o user não estiver na role "Admin"
             {

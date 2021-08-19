@@ -40,13 +40,16 @@ namespace SuperShop.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                //return NotFound();
+                return new NotFoundViewResult("ProductNotFound");
             }
 
-            var product = await _productRepository.GetByIdAsync(id.Value); // Caso o id não exista (null) este método sabe resolver a situação e não rebenta
+            // Caso o id não exista (null) este método sabe resolver a situação e não rebenta
+            var product = await _productRepository.GetByIdAsync(id.Value);
             if (product == null)
             {
-                return NotFound();
+                //return NotFound();
+                return new NotFoundViewResult("ProductNotFound");
             }
 
             return View(product);
@@ -55,7 +58,7 @@ namespace SuperShop.Controllers
         // Impede o acesso à View Create dos produtos, obrigando a estar logado numa conta de tipo Admin
         // Para adicionar permissões a mais do que uma role fazer [Authorize(Roles ="Role,Role,Role,Role,...")]
         // GET: Products/Create
-        [Authorize(Roles ="Admin")] 
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -93,13 +96,15 @@ namespace SuperShop.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                //return NotFound();
+                return new NotFoundViewResult("ProductNotFound");
             }
 
             var product = await _productRepository.GetByIdAsync(id.Value);
             if (product == null)
             {
-                return NotFound();
+                //return NotFound();
+                return new NotFoundViewResult("ProductNotFound");
             }
 
             var model = _converterHelper.ToProductViewModel(product);
@@ -152,13 +157,15 @@ namespace SuperShop.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                //return NotFound();
+                return new NotFoundViewResult("ProductNotFound");
             }
 
             var product = await _productRepository.GetByIdAsync(id.Value);
             if (product == null)
             {
-                return NotFound();
+                //return NotFound();
+                return new NotFoundViewResult("ProductNotFound");
             }
 
             return View(product);
@@ -172,6 +179,11 @@ namespace SuperShop.Controllers
             var product = await _productRepository.GetByIdAsync(id);
             await _productRepository.DeleteAsync(product);
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult ProductNotFound()
+        {
+            return View();
         }
     }
 }

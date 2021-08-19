@@ -45,6 +45,15 @@ namespace SuperShop
             services.AddScoped<IProductRepository, ProductRepository>(); // Objeto é criado e utilizado durante a execução do programa. Caso carreguemos nos products novamente, ele apaga este objeto e cria um novo
             services.AddScoped<IBlobHelper, BlobHelper>();
             services.AddScoped<IConverterHelper, ConverterHelper>();
+
+            // Quando houver um acesso negado, executa esta View()
+            services.ConfigureApplicationCookie(options =>
+            {
+                // Substitui o login path e AccessDenied path predefinidos pelo controlador Account e Action NotAuthorized
+                options.LoginPath = "/Account/NotAuthorized"; 
+                options.AccessDeniedPath = "/Account/NotAuthorized"; 
+            });
+
             services.AddControllersWithViews();
         }
 
@@ -61,6 +70,11 @@ namespace SuperShop
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            // Quando inserimos uma página que ele não encontrar (404), o que fazer?
+            // Fazer sempre na página de arranque
+            app.UseStatusCodePagesWithReExecute("/error/{0}");
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

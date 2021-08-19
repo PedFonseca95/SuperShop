@@ -12,7 +12,7 @@ namespace SuperShop.Helpers
         private readonly RoleManager<IdentityRole> _roleManager;
 
         public UserHelper(
-            UserManager<User> userManager, 
+            UserManager<User> userManager,
             SignInManager<User> signInManager,
             RoleManager<IdentityRole> roleManager)
         {

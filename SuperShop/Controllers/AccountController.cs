@@ -178,5 +178,11 @@ namespace SuperShop.Controllers
 
             return this.View(model); // Retorna à View ChangePassword, já com as informações atualizadas do user (model)
         }
+
+        // Quando o user não tem acesso a uma determinada página
+        public IActionResult NotAuthorized()
+        {
+            return View();
+        }
     }
 }
