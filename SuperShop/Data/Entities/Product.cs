@@ -42,6 +42,6 @@ namespace SuperShop.Data.Entities
 
         public string ImageFullPath => ImageId == Guid.Empty
             ? $"https://supershopfonseca.azurewebsites.net/images/noimage.png" // Se não tiver imagem, faz load de uma imagem default
-            : $"https://supershopfonseca.blob.core.windows.net/products/{ImageId}"; // Se tiver imagem, vai buscá-la ao contentor do azure
+            : $"https://supershopfonsecastorage.blob.core.windows.net/products/{ImageId}"; // Se tiver imagem, vai buscá-la ao contentor do azure
     }
 }

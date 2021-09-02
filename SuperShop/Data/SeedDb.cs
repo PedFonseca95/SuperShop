@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using SuperShop.Data.Entities;
 using SuperShop.Helpers;
 using System;
@@ -25,7 +26,7 @@ namespace SuperShop.Data
 
         public async Task SeedAsync()
         {
-            await _context.Database.EnsureCreatedAsync(); // Se a BD não existir, cria-a
+            await _context.Database.MigrateAsync(); // Se a BD não existir, cria-a
 
             // Verificar se as roles existem, senão cria-as
             await _userHelper.CheckRoleAsync("Admin");
