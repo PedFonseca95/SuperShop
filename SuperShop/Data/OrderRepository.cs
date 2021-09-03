@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SuperShop.Data.Entities;
 using SuperShop.Helpers;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,12 +11,26 @@ namespace SuperShop.Data
         private readonly DataContext _context;
         private readonly IUserHelper _userHelper;
 
-        public OrderRepository(DataContext context, IUserHelper userHelper) : base (context)
+        public OrderRepository(DataContext context, IUserHelper userHelper) : base(context)
         {
             _context = context;
             _userHelper = userHelper;
         }
 
+        public async Task<IQueryable<OrderDetailTemp>> GetDetailTempsAsync(string userName)
+        {
+            var user = await _userHelper.GetUserByEmailAsync(userName); // Verificar se o user existe
+
+            if (user == null) // Se não existir
+            {
+                return null;
+            }
+
+            return _context.OrderDetailTemps // Vai buscar os temporários
+                .Include(p => p.Product)
+                .Where(o => o.User == user)
+                .OrderBy(o => o.Product.Name);
+        }
 
         public async Task<IQueryable<Order>> GetOrderAsync(string userName)
         {

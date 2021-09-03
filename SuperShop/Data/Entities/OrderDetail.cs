@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace SuperShop.Data.Entities
 {
-    public class OrderDetail: IEntity // Após terminar a order
+    public class OrderDetail : IEntity // Após terminar a order
     {
         public int Id { get; set; }
 
