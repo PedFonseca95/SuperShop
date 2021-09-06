@@ -53,7 +53,7 @@ namespace SuperShop.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> DeleteItem (int? id)
+        public async Task<IActionResult> DeleteItem(int? id)
         {
             if (id == null)
             {
@@ -71,7 +71,7 @@ namespace SuperShop.Controllers
                 return NotFound();
             }
 
-            await _orderRepository.ModifyOrderDetailTempQuantityAsync(id.Value,1);
+            await _orderRepository.ModifyOrderDetailTempQuantityAsync(id.Value, 1);
             return RedirectToAction("Create");
         }
 
@@ -82,7 +82,7 @@ namespace SuperShop.Controllers
                 return NotFound();
             }
 
-            await _orderRepository.ModifyOrderDetailTempQuantityAsync(id.Value,-1);
+            await _orderRepository.ModifyOrderDetailTempQuantityAsync(id.Value, -1);
             return RedirectToAction("Create");
         }
 
